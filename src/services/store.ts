@@ -5,11 +5,11 @@ import {
   useSelector as selectorHook
 } from 'react-redux';
 import { constructorBurger } from './auth/slice/constructorBurger';
-import { ordersReducer } from './auth/slice/orders';
+import { order } from './auth/slice/orders';
 
 const rootReducer = combineReducers({
   constructorBurger: constructorBurger,
-  orders: ordersReducer
+  orders: order
 });
 
 const store = configureStore({

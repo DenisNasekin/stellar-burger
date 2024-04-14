@@ -53,7 +53,7 @@ const constructorBurgerSlice = createSlice({
         );
     },
     resetConstructor: (state) => {
-      state = initialState;
+      state.constructorItems = initialState;
     },
     moveIngredientUp: (state, { payload }: PayloadAction<number>) => {
       const index = state.constructorItems.ingredients[payload];
