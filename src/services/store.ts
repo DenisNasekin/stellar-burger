@@ -6,10 +6,12 @@ import {
 } from 'react-redux';
 import { constructorBurger } from './auth/slice/constructorBurger';
 import { order } from './auth/slice/orders';
+import { user } from './auth/slice/user';
 
 const rootReducer = combineReducers({
   constructorBurger: constructorBurger,
-  orders: order
+  orderSlice: order,
+  user: user
 });
 
 const store = configureStore({

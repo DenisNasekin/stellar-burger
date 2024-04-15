@@ -16,6 +16,7 @@ import { AppHeader, IngredientDetails, Modal, OrderInfo } from '@components';
 import { useEffect } from 'react';
 import { useDispatch } from '../../services/store';
 import { ingredientFromApi } from '../../services/auth/slice/constructorBurger';
+import { getUser } from '../../services/auth/slice/user';
 
 const App = () => {
   const location = useLocation();
@@ -24,6 +25,9 @@ const App = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(ingredientFromApi());
+    if (localStorage.getItem('refreshToken')) {
+      dispatch(getUser());
+    }
   }, []);
   const handleModalClose = () => {
     navigate(-1);

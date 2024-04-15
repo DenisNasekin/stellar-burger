@@ -8,18 +8,24 @@ import {
 } from '../../services/auth/slice/constructorBurger';
 import { clearOrder, createOrder } from '../../services/auth/slice/orders';
 import { useNavigate } from 'react-router-dom';
+import { getIsInitUser, getRequestUser } from '../../services/auth/slice/user';
 
 export const BurgerConstructor: FC = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const constructorItems = useSelector(getConstructorItems);
+  const orderRequest = useSelector(getRequestUser);
+  const initUser = useSelector(getIsInitUser);
 
-  const orderRequest = false;
-
-  const orderModalData = useSelector((state) => state.orders.orderData);
+  const orderModalData = useSelector((state) => state.orderSlice.orderData);
 
   const onOrderClick = () => {
     if (!constructorItems.bun || orderRequest) return;
+
+    if (!initUser) {
+      navigate('/login');
+      return;
+    }
     const order: string[] = [
       constructorItems.bun!._id,
       ...constructorItems.ingredients.map(
