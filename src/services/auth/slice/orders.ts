@@ -40,7 +40,6 @@ export const getOrderByNumberFromApi = createAsyncThunk(
 );
 
 interface IOrderState {
-  feeds: TOrder[];
   orders: TOrder[];
   total: number;
   todayTotal: number;
@@ -51,7 +50,6 @@ interface IOrderState {
 }
 
 const initialState: IOrderState = {
-  feeds: [],
   orders: [],
   total: 0,
   todayTotal: 0,
@@ -70,13 +68,13 @@ const orderSlice = createSlice({
     }
   },
   selectors: {
-    getOrders: (state) => state.orders,
+    getOrder: (state) => state.orders,
     getOrderDate: (state) => state.orderData,
     getRequest: (state) => state.request,
     getLoading: (state) => state.isLoading,
     getTotal: (state) => state.total,
     getTodayTotal: (state) => state.todayTotal,
-    getFeed: (state) => state.feeds
+    getFeedState: (state) => state
   },
   extraReducers: (builder) => {
     builder.addCase(getUserOrders.pending, (state) => {
@@ -103,10 +101,12 @@ const orderSlice = createSlice({
     });
     builder.addCase(getFeedOrders.pending, (state) => {
       state.isLoading = true;
+      state.error = undefined;
     });
     builder.addCase(getFeedOrders.fulfilled, (state, action) => {
       state.isLoading = false;
-      state.feeds = action.payload.orders;
+      state.error = undefined;
+      state.orders = action.payload.orders;
       state.total = action.payload.total;
       state.todayTotal = action.payload.totalToday;
     });
@@ -129,13 +129,13 @@ const orderSlice = createSlice({
 });
 
 export const {
-  getOrders,
+  getOrder,
   getOrderDate,
   getRequest,
   getLoading,
   getTotal,
   getTodayTotal,
-  getFeed
+  getFeedState
 } = orderSlice.selectors;
 
 export const { clearOrder } = orderSlice.actions;

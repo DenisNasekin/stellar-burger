@@ -7,13 +7,13 @@ import { getIngredient } from '../../services/auth/slice/constructorBurger';
 import {
   getLoading,
   getOrderByNumberFromApi,
-  getOrders
+  getOrder
 } from '../../services/auth/slice/orders';
 import { useParams } from 'react-router-dom';
 
 export const OrderInfo: FC = () => {
   /** TODO: взять переменные orderData и ingredients из стора */
-  const ordersData: TOrder[] = useSelector(getOrders);
+  const ordersData: TOrder[] = useSelector(getOrder);
   const orderData = ordersData.find((order) => order);
   const ingredients: TIngredient[] = useSelector(getIngredient);
   const numberOrder = Number(useParams().number);
