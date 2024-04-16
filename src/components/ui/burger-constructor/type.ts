@@ -1,4 +1,4 @@
-import { TOrder } from '@utils-types';
+import { TConstructorIngredient, TOrder } from '@utils-types';
 
 export type BurgerConstructorUIProps = {
   constructorItems: any;
