@@ -28,3 +28,4 @@ export const FeedInfo: FC = () => {
     />
   );
 };
+//Для пулреквеста

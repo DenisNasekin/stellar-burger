@@ -159,3 +159,4 @@ export const { getRequestUser, getProfile, getIsInitUser, getError } =
   userSlice.selectors;
 //Экспортируем слайс
 export const user = userSlice.reducer;
+//Для пулреквеста

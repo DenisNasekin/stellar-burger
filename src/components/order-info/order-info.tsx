@@ -72,3 +72,4 @@ export const OrderInfo: FC = () => {
 
   return <OrderInfoUI orderInfo={orderInfo} />;
 };
+//Для пулреквеста

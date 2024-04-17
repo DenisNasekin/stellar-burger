@@ -24,6 +24,7 @@ const App = () => {
   const background = location.state && location.state.background;
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  //Выгружаем ингредиенты
   useEffect(() => {
     dispatch(ingredientFromApi());
     if (localStorage.getItem('refreshToken')) {

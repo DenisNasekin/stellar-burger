@@ -13,6 +13,7 @@ import { getIsInitUser, getRequestUser } from '../../services/auth/slice/user';
 export const BurgerConstructor: FC = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  //Данные из стора
   const constructorItems = useSelector(getConstructorItems);
   const orderRequest = useSelector(getRequestUser);
   const initUser = useSelector(getIsInitUser);

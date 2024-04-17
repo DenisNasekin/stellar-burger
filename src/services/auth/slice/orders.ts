@@ -141,3 +141,4 @@ export const {
 export const { clearOrder } = orderSlice.actions;
 
 export const order = orderSlice.reducer;
+//Для пулреквеста

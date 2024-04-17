@@ -31,3 +31,4 @@ export const BurgerIngredient: FC<TBurgerIngredientProps> = memo(
     );
   }
 );
+//Для пулреквеста
