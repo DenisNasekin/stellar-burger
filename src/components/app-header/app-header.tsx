@@ -4,7 +4,7 @@ import { useSelector } from '../../services/store';
 import { getProfile } from '../../services/auth/slice/user';
 
 export const AppHeader: FC = () => {
-  const user = useSelector(getProfile);
+  const profile = useSelector(getProfile);
 
-  return <AppHeaderUI userName={'' || user?.name} />;
+  return <AppHeaderUI userName={'' || profile?.name} />;
 };
