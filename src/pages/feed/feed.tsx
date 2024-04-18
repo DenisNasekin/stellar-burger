@@ -10,7 +10,6 @@ import {
 } from '../../services/slices/order';
 
 export const Feed: FC = () => {
-  
   const orders: TOrder[] = useSelector(getOrder);
 
   const dispatch = useDispatch();
@@ -28,4 +27,3 @@ export const Feed: FC = () => {
 
   return <FeedUI orders={orders} handleGetFeeds={handleGetFeeds} />;
 };
-
