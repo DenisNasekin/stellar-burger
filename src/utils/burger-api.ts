@@ -1,7 +1,7 @@
 import { setCookie, getCookie } from './cookie';
 import { TIngredient, TOrder, TOrdersData, TUser } from './types';
 
-const URL = 'https://norma.nomoreparties.space/api';
+const URL = process.env.BURGER_API_URL;
 
 const checkResponse = <T>(res: Response): Promise<T> =>
   res.ok ? res.json() : res.json().then((err) => Promise.reject(err));
@@ -35,6 +35,8 @@ export const refreshToken = (): Promise<TRefreshResponse> =>
       return refreshData;
     });
 
+/* Это предпочтительны способ обновления токена, но допустимы и другие, главное,
+что бы обновление токена работало корректно */
 export const fetchWithRefresh = async <T>(
   url: RequestInfo,
   options: RequestInit

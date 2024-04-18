@@ -1,19 +1,10 @@
 import { FC } from 'react';
-import { Preloader } from '../ui/preloader';
-import { IngredientDetailsUI } from '../ui/ingredient-details';
-import { useSelector } from '../../services/store';
-import { useParams } from 'react-router-dom';
-import { getIngredient } from '../../services/auth/slice/constructorBurger';
 
-export const IngredientDetails: FC = () => {
-  const ingredients = useSelector(getIngredient);
-  const { id } = useParams();
+export const IngredientDetails: FC = () =>
+  // if (!ingredientData) {
+  //   return <Preloader />;
+  // }
 
-  const ingredientData = ingredients.find((item) => item._id === id);
+  // return <IngredientDetailsUI ingredientData={ingredientData} />;
 
-  if (!ingredientData) {
-    return <Preloader />;
-  }
-
-  return <IngredientDetailsUI ingredientData={ingredientData} />;
-};
+  null;
