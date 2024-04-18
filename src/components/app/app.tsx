@@ -16,6 +16,8 @@ import { AppHeader, IngredientDetails, Modal, OrderInfo } from '@components';
 import { ProtectedRoute } from '../protected-route/protected-route';
 import { useEffect } from 'react';
 import { useDispatch } from '../../services/store';
+import { ingredientFromApi } from '../../services/slices/ingredient';
+import { getUser } from '../../services/slices/user';
 
 const App = () => {
   const location = useLocation();
@@ -23,6 +25,12 @@ const App = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  useEffect(() => {
+    dispatch(ingredientFromApi());
+    if (localStorage.getItem('refreshToken')) {
+      dispatch(getUser());
+    }
+  }, []);
   const handleModalClose = () => {
     navigate(-1);
   };

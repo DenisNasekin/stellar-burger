@@ -7,9 +7,7 @@ import { FC } from 'react';
 import { getIsLoading } from '../../services/slices/ingredient';
 
 export const ConstructorPage: FC = () => {
-  const isIngredientsLoading = useSelector(
-    (state) => state.ingredient.isLoading
-  );
+  const isIngredientsLoading = useSelector(getIsLoading);
 
   return (
     <>
