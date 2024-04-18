@@ -3,13 +3,14 @@ import { TIngredientsCategoryProps } from './type';
 import { TIngredient } from '@utils-types';
 import { IngredientsCategoryUI } from '../ui/ingredients-category';
 import { useSelector } from '../../services/store';
-import { getConstructorItems } from '../../services/auth/slice/constructorBurger';
 
 export const IngredientsCategory = forwardRef<
   HTMLUListElement,
   TIngredientsCategoryProps
 >(({ title, titleRef, ingredients }, ref) => {
-  const constructorItems = useSelector(getConstructorItems);
+  const constructorItems = useSelector(
+    (state) => state.constructorBurger.constructorItems
+  );
 
   const ingredientsCounters = useMemo(() => {
     const { bun, ingredients } = constructorItems;
@@ -18,7 +19,7 @@ export const IngredientsCategory = forwardRef<
       if (!counters[ingredient._id]) counters[ingredient._id] = 0;
       counters[ingredient._id]++;
     });
-    if (bun) counters[bun.price] = 2;
+    if (bun) counters[bun._id] = 2;
     return counters;
   }, [constructorItems]);
 
@@ -32,4 +33,3 @@ export const IngredientsCategory = forwardRef<
     />
   );
 });
-//Для пулреквеста

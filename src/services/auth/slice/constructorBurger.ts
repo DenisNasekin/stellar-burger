@@ -5,7 +5,10 @@ import { TIngredient, TConstructorIngredient } from '@utils-types';
 export type TConstructorBurgerState = {
   ingredients: TIngredient[];
   isLoading: Boolean;
-  constructorItems: any;
+  constructorItems: {
+    bun: TConstructorIngredient | null;
+    ingredients: TConstructorIngredient[];
+  };
 };
 
 const initialState: TConstructorBurgerState = {
@@ -28,7 +31,7 @@ const constructorBurgerSlice = createSlice({
   name: 'constructorBurger',
   initialState,
   reducers: {
-    addBun: (state, action: PayloadAction<TIngredient>) => {
+    addBun: (state, action: PayloadAction<TConstructorIngredient>) => {
       state.constructorItems.bun = action.payload;
     },
     addIngredient: {
@@ -53,7 +56,9 @@ const constructorBurgerSlice = createSlice({
         );
     },
     resetConstructor: (state) => {
-      state.constructorItems = initialState;
+      state.constructorItems.bun = null;
+      state.constructorItems.ingredients = [];
+      state.isLoading = false;
     },
     moveIngredientUp: (state, { payload }: PayloadAction<number>) => {
       const index = state.constructorItems.ingredients[payload];
@@ -105,4 +110,3 @@ export const {
   resetConstructor
 } = constructorBurgerSlice.actions;
 export const constructorBurger = constructorBurgerSlice.reducer;
-//Для пулреквеста
