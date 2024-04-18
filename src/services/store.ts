@@ -7,11 +7,13 @@ import {
 import { constructorBurger } from './slices/ingredient';
 import { order } from './slices/order';
 import { user } from './slices/user';
+import { feed } from './slices/feed';
 
 const rootReducer = combineReducers({
   constructorBurger: constructorBurger,
   orderSlice: order,
-  user: user
+  user: user,
+  feeds: feed
 });
 
 const store = configureStore({
