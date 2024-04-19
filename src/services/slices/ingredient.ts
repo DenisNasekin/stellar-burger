@@ -19,10 +19,7 @@ const initialState: TConstructorBurgerState = {
 
 export const ingredientFromApi = createAsyncThunk(
   'ingredient/ingredientFromApi',
-  async function () {
-    const res = await getIngredientsApi();
-    return res;
-  }
+  getIngredientsApi
 );
 
 const randomId = () => self.crypto.randomUUID();

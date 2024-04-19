@@ -1,6 +1,5 @@
 import {
   TLoginData,
-  TRegisterData,
   getUserApi,
   loginUserApi,
   logoutApi,
@@ -21,10 +20,8 @@ export const setLoginUser = createAsyncThunk(
   }
 );
 
-export const getUser = createAsyncThunk('user/getUserApi', async function () {
-  const res = getUserApi();
-  return res;
-});
+export const getUser = createAsyncThunk('user/getUserApi', getUserApi);
+
 export const logoutUser = createAsyncThunk(
   'logoutUser/logoutApi',
   async function () {
@@ -37,18 +34,12 @@ export const logoutUser = createAsyncThunk(
 
 export const setRegisterUser = createAsyncThunk(
   'setRegisterUser/registerUserApi',
-  async function (data: TRegisterData) {
-    const res = await registerUserApi(data);
-    return res;
-  }
+  registerUserApi
 );
 
 export const updateUser = createAsyncThunk(
   'updateUser/updateUserApi',
-  async function (updateData: TRegisterData) {
-    const res = await updateUserApi(updateData);
-    return res;
-  }
+  updateUserApi
 );
 
 interface IUserState {

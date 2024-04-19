@@ -4,10 +4,7 @@ import { TOrder } from '@utils-types';
 
 export const getFeedOrders = createAsyncThunk(
   'getFeedOrders/getFeedsApi',
-  async () => {
-    const res = await getFeedsApi();
-    return res;
-  }
+  getFeedsApi
 );
 
 interface IFeedState {

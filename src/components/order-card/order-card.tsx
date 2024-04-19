@@ -11,12 +11,11 @@ const maxIngredients = 6;
 
 export const OrderCard: FC<OrderCardProps> = memo(({ order }) => {
   const location = useLocation();
-
-  /** TODO: РІР·СЏС‚СЊ РїРµСЂРµРјРµРЅРЅСѓСЋ РёР· СЃС‚РѕСЂР° */
-  const ingredients: TIngredient[] = useSelector(getIngredient);
+  const ingredients = useSelector(getIngredient);
 
   const orderInfo = useMemo(() => {
     if (!ingredients.length) return null;
+
     const ingredientsInfo = order.ingredients.reduce(
       (acc: TIngredient[], item: string) => {
         const ingredient = ingredients.find((ing) => ing._id === item);

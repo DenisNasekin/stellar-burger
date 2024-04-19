@@ -91,14 +91,6 @@ const App = () => {
               </ProtectedRoute>
             }
           />
-          <Route
-            path='/profile/orders/:number'
-            element={
-              <ProtectedRoute>
-                <ProfileOrders />
-              </ProtectedRoute>
-            }
-          />
         </Routes>
         {background && (
           <Routes>
@@ -124,10 +116,15 @@ const App = () => {
             <Route
               path='/profile/orders/:number'
               element={
-                <Modal onClose={handleModalClose} title={'Информация о заказе'}>
-                  {' '}
-                  <OrderInfo />{' '}
-                </Modal>
+                <ProtectedRoute>
+                  <Modal
+                    onClose={handleModalClose}
+                    title={'Информация о заказе'}
+                  >
+                    {' '}
+                    <OrderInfo />{' '}
+                  </Modal>
+                </ProtectedRoute>
               }
             />
           </Routes>

@@ -9,26 +9,17 @@ import { TOrder } from '@utils-types';
 
 export const createOrder = createAsyncThunk(
   'createOrder/orderBurgerApi',
-  async function (date: string[]) {
-    const res = await orderBurgerApi(date);
-    return res;
-  }
+  orderBurgerApi
 );
 
 export const getUserOrders = createAsyncThunk(
   'getUserOrders/getOrdersApi',
-  async function () {
-    const res = await getOrdersApi();
-    return res;
-  }
+  getOrdersApi
 );
 
 export const getOrderByNumberFromApi = createAsyncThunk(
   'getOrderByNumberFromApi/getOrderByNumberApi',
-  async function (number: number) {
-    const res = await getOrderByNumberApi(number);
-    return res;
-  }
+  getOrderByNumberApi
 );
 
 interface IOrderState {
