@@ -1,9 +1,9 @@
-import { Navigate, useLocation, useParams } from 'react-router-dom';
+import { Navigate, useLocation } from 'react-router-dom';
 import {
   getIsInitUser,
   getProfile,
   getRequestUser
-} from '../../services/auth/slice/user';
+} from '../../services/slices/user';
 import { useSelector } from '../../services/store';
 import { Preloader } from '../ui/preloader/preloader';
 

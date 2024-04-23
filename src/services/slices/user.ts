@@ -1,6 +1,5 @@
 import {
   TLoginData,
-  TRegisterData,
   getUserApi,
   loginUserApi,
   logoutApi,
@@ -9,8 +8,8 @@ import {
 } from '@api';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { TUser } from '@utils-types';
-import { setCookie, deleteCookie } from '../../../utils/cookie';
-//Функция отправки данных клиента на сервер
+import { setCookie, deleteCookie } from '../../utils/cookie';
+
 export const setLoginUser = createAsyncThunk(
   'loginUser/loginUserApi',
   async function (loginData: TLoginData) {
@@ -20,12 +19,9 @@ export const setLoginUser = createAsyncThunk(
     return data;
   }
 );
-//Функция получения пользователя с сервера
-export const getUser = createAsyncThunk('user/getUserApi', async function () {
-  const res = getUserApi();
-  return res;
-});
-//Функция удаления пользователя с сервера
+
+export const getUser = createAsyncThunk('user/getUserApi', getUserApi);
+
 export const logoutUser = createAsyncThunk(
   'logoutUser/logoutApi',
   async function () {
@@ -35,37 +31,31 @@ export const logoutUser = createAsyncThunk(
     });
   }
 );
-//Функция получения зарегистрированного пользователя
+
 export const setRegisterUser = createAsyncThunk(
   'setRegisterUser/registerUserApi',
-  async function (data: TRegisterData) {
-    const res = await registerUserApi(data);
-    return res;
-  }
+  registerUserApi
 );
-//Функция обновления данных пользователя
+
 export const updateUser = createAsyncThunk(
   'updateUser/updateUserApi',
-  async function (updateData: TRegisterData) {
-    const res = await updateUserApi(updateData);
-    return res;
-  }
+  updateUserApi
 );
-//Интерфейс слайса
+
 interface IUserState {
   request: boolean;
   profile: TUser;
   isInitUser: boolean;
   error: string | undefined;
 }
-//Начальное состояние слайса
+
 const initialState: IUserState = {
   request: false,
   profile: { email: '', name: '' },
   isInitUser: false,
   error: undefined
 };
-//Слайс пользователя
+
 const userSlice = createSlice({
   name: 'user',
   initialState,
@@ -152,10 +142,10 @@ const userSlice = createSlice({
       });
   }
 });
-//Эспортируем экшены
+
 export const { clearError, userLogout } = userSlice.actions;
-//Экспортируем селекторы
+
 export const { getRequestUser, getProfile, getIsInitUser, getError } =
   userSlice.selectors;
-//Экспортируем слайс
+
 export const user = userSlice.reducer;
