@@ -1,0 +1,9 @@
+{
+    "accessToken": "testAccessToken",
+    "refreshToken": "testRefreshToken",
+    "success": true,
+    "user": {
+      "email": "nasekindo@zakrepi.ru",
+      "name": "Denis"
+    }
+  }
