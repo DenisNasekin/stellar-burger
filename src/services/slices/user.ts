@@ -49,7 +49,7 @@ interface IUserState {
   error: string | undefined;
 }
 
-const initialState: IUserState = {
+export const initialState: IUserState = {
   request: false,
   profile: { email: '', name: '' },
   isInitUser: false,

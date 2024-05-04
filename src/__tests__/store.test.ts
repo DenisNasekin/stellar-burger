@@ -1,4 +1,4 @@
-import story, { rootReducer } from './store';
+import story, { rootReducer } from '../services/store';
 
 test('Тест работы корневого редьюсера', () => {
   const res = rootReducer(undefined, { type: 'ACTION' });
