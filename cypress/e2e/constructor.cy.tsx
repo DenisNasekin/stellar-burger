@@ -1,6 +1,8 @@
 import Cypress from 'cypress';
 
 const BASE_URL = 'http://localhost:4000';
+const BUN = `[data-cy = '643d69a5c3f7b9001cfa093d']`
+const INGREDIENT = `[data-cy = '643d69a5c3f7b9001cfa093e']`;
 
 describe('[1] Проверяем работу конструктора', () => {
     beforeEach(() => {
@@ -8,8 +10,8 @@ describe('[1] Проверяем работу конструктора', () => {
         cy.intercept('GET', 'api/ingredients', {fixture: 'ingredients.json'});
     });
     it('Проверям добавление булки и начинки', () => {
-        cy.get('[data-cy = 643d69a5c3f7b9001cfa093d]').children('button').click();
-        cy.get('[data-cy = 643d69a5c3f7b9001cfa093e]').children('button').click();
+        cy.get(BUN).children('button').click();
+        cy.get(INGREDIENT).children('button').click();
     });
 });
 
@@ -19,18 +21,18 @@ describe('[2] Проверяем работу модального окна с �
         cy.intercept('GET', 'api/ingredients', {fixture: 'ingredients.json'});
     });
     it('Проверяем открытие модального окна', () => {
-        cy.get('[data-cy = 643d69a5c3f7b9001cfa093d]').click();
+        cy.get(BUN).click();
     });
     it('Проверяем закрытие модального окна по нажатию на кнопку', () => {
-        cy.get('[data-cy = 643d69a5c3f7b9001cfa093d]').click();
+        cy.get(BUN).click();
         cy.get('[data-cy="modal-close"]').click();
     });
     it('Проверяем закрытие модального окна по нажатию на оверлей', () => {
-        cy.get('[data-cy = 643d69a5c3f7b9001cfa093d]').click();
+        cy.get(BUN).click();
         cy.get('[data-cy= "overlay"]').click({force: true});
     });
     it('Проверяем отображение данных выбранного ингредиента', () => {
-        cy.get('[data-cy = 643d69a5c3f7b9001cfa093d]').click();
+        cy.get(BUN).click();
         cy.get('[data-cy= "modal"]').should('contain.text', 'Детали ингредиента Флюоресцентная булка R2-D3Калории, ккал643Белки, г44Жиры, г26Углеводы, г85');
       
     });
@@ -50,9 +52,9 @@ describe('[3] Проверяем оформление заказа', () => {
         localStorage.clear();
     });
     it('Проверям оформление заказа и закрытие по кнопке', () => {
-        cy.get('[data-cy = 643d69a5c3f7b9001cfa093d]').children('button').click();
-        cy.get('[data-cy = 643d69a5c3f7b9001cfa093e]').children('button').click();
-        cy.get('[data-cy = 643d69a5c3f7b9001cfa093e]').children('button').click();
+        cy.get(BUN).children('button').click();
+        cy.get(INGREDIENT).children('button').click();
+        cy.get(INGREDIENT).children('button').click();
         cy.get('button').contains('Оформить заказ').click();
         cy.get('[data-cy="orderNumber"]').should('contain.text', '39220');
         cy.get('[data-cy="modal-close"]').click();
