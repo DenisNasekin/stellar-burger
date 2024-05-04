@@ -1,5 +1,10 @@
-import { getIngredientsApi } from '@api';
-import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { getIngredientsApi } from '../../utils/burger-api';
+import {
+  PayloadAction,
+  createAsyncThunk,
+  createSlice,
+  nanoid
+} from '@reduxjs/toolkit';
 import { TIngredient, TConstructorIngredient } from '@utils-types';
 
 export type TConstructorBurgerState = {
@@ -9,20 +14,20 @@ export type TConstructorBurgerState = {
     bun: TConstructorIngredient | null;
     ingredients: TConstructorIngredient[];
   };
+  error: string | null;
 };
 
-const initialState: TConstructorBurgerState = {
+export const initialState: TConstructorBurgerState = {
   ingredients: [],
   isLoading: false,
-  constructorItems: { bun: null, ingredients: [] }
+  constructorItems: { bun: null, ingredients: [] },
+  error: null
 };
 
 export const ingredientFromApi = createAsyncThunk(
   'ingredient/ingredientFromApi',
   getIngredientsApi
 );
-
-const randomId = () => self.crypto.randomUUID();
 
 const constructorBurgerSlice = createSlice({
   name: 'constructorBurger',
@@ -39,9 +44,10 @@ const constructorBurgerSlice = createSlice({
           state.constructorItems.ingredients.push(payload);
         }
       },
-      prepare: (ingredient: TIngredient) => ({
-        payload: { ...ingredient, id: randomId() }
-      })
+      prepare: (ingredient: TIngredient) => {
+        const id = nanoid();
+        return { payload: { ...ingredient, id } };
+      }
     },
     removeIngredient: (
       state,
@@ -90,8 +96,9 @@ const constructorBurgerSlice = createSlice({
       state.isLoading = false;
       state.ingredients = action.payload;
     });
-    builder.addCase(ingredientFromApi.rejected, (state) => {
+    builder.addCase(ingredientFromApi.rejected, (state, action) => {
       state.isLoading = false;
+      state.error = action.error.message as string;
     });
   }
 });

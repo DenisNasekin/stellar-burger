@@ -1,9 +1,8 @@
 import {
-  getFeedsApi,
   getOrderByNumberApi,
   getOrdersApi,
   orderBurgerApi
-} from '@api';
+} from '../../utils/burger-api';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { TOrder } from '@utils-types';
 
@@ -30,7 +29,7 @@ interface IOrderState {
   orderData: TOrder | null;
 }
 
-const initialState: IOrderState = {
+export const initialState: IOrderState = {
   orders: [],
   isLoading: false,
   error: undefined,
@@ -55,24 +54,30 @@ const orderSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(getUserOrders.pending, (state) => {
       state.request = true;
+      state.isLoading = true;
     });
     builder.addCase(getUserOrders.fulfilled, (state, action) => {
       state.request = false;
+      state.isLoading = false;
       state.orders = action.payload;
     });
     builder.addCase(getUserOrders.rejected, (state, action) => {
       state.request = false;
+      state.isLoading = false;
       state.error = action.error.message;
     });
     builder.addCase(createOrder.pending, (state) => {
+      state.isLoading = true;
       state.request = true;
     });
     builder.addCase(createOrder.fulfilled, (state, action) => {
       state.request = false;
+      state.isLoading = false;
       state.orderData = action.payload.order;
     });
     builder.addCase(createOrder.rejected, (state, action) => {
       state.request = false;
+      state.isLoading = false;
       state.error = action.error.message;
     });
 
@@ -81,7 +86,7 @@ const orderSlice = createSlice({
     });
     builder.addCase(getOrderByNumberFromApi.fulfilled, (state, action) => {
       state.isLoading = false;
-      state.orders = action.payload.orders;
+      state.orderData = action.payload.orders[0];
     });
     builder.addCase(getOrderByNumberFromApi.rejected, (state, action) => {
       state.isLoading = false;
