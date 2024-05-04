@@ -1,12 +1,11 @@
 import Cypress from 'cypress';
 
+const BASE_URL = 'http://localhost:4000';
+
 describe('[1] Проверяем работу конструктора', () => {
     beforeEach(() => {
-        const BASE_URL = 'http://localhost:4000';
         cy.visit(BASE_URL);
-        cy.intercept('GET', `${BASE_URL}/ingredients`, {
-            fixture: 'ingredients.json'
-        }).as('getIngredients');
+        cy.intercept('GET', 'api/ingredients', {fixture: 'ingredients.json'});
     });
     it('Проверям добавление булки и начинки', () => {
         cy.get('[data-cy = 643d69a5c3f7b9001cfa093d]').children('button').click();
@@ -16,11 +15,8 @@ describe('[1] Проверяем работу конструктора', () => {
 
 describe('[2] Проверяем работу модального окна с детальной ифнормацией по ингредиенту', () => {
     beforeEach(() => {
-        const BASE_URL = 'http://localhost:4000';
         cy.visit(BASE_URL);
-        cy.intercept('GET', `${BASE_URL}/ingredients`, {
-            fixture: 'ingredients.json'
-        }).as('getIngredients');
+        cy.intercept('GET', 'api/ingredients', {fixture: 'ingredients.json'});
     });
     it('Проверяем открытие модального окна', () => {
         cy.get('[data-cy = 643d69a5c3f7b9001cfa093d]').click();
@@ -42,29 +38,26 @@ describe('[2] Проверяем работу модального окна с �
 
 describe('[3] Проверяем оформление заказа', () => {
     beforeEach(() => {
-        const BASE_URL = 'http://localhost:4000';
+        cy.setCookie('accessToken', 'test-accessToken');
+        localStorage.setItem('refreshToken', 'test-refreshToken');
+        cy.intercept('GET', 'api/ingredients', {fixture: 'ingredients.json'});
+        cy.intercept('GET', 'api/auth/user', {fixture: 'user.json'});
+        cy.intercept('POST', 'api/orders', {fixture: 'order.json'});
         cy.visit(BASE_URL);
-        cy.intercept('GET', `${BASE_URL}/ingredients`, {
-            fixture: 'ingredients.json'
-        }).as('getIngredients');
-        cy.intercept('GET', `${BASE_URL}/auth/user`, {
-            fixture: 'user.json'
-        });
-        cy.intercept('POST', `${BASE_URL}/orders`, {
-            fixture: 'order.json'
-        }).as('postOrder');
-        cy.setCookie('accessToken', 'testAccessToken');
-        localStorage.setItem('refreshToken', 'testRefreshToken');
     });
     afterEach(() => {
         cy.clearCookies();
         localStorage.clear();
     });
-    it('Проверям оформление заказа', () => {
+    it('Проверям оформление заказа и закрытие по кнопке', () => {
         cy.get('[data-cy = 643d69a5c3f7b9001cfa093d]').children('button').click();
         cy.get('[data-cy = 643d69a5c3f7b9001cfa093e]').children('button').click();
         cy.get('[data-cy = 643d69a5c3f7b9001cfa093e]').children('button').click();
         cy.get('button').contains('Оформить заказ').click();
-        cy.get('[data-cy="orderNumber"]').should('contain.text', '39188');
+        cy.get('[data-cy="orderNumber"]').should('contain.text', '39220');
+        cy.get('[data-cy="modal-close"]').click();
+        cy.get('[data-cy="bunTop"]').contains('Выберите булки');
+        cy.get('[data-cy="ingredient"]').contains('Выберите начинку');
+        cy.get('[data-cy="bunBottom"]').contains('Выберите булки');
     });
 });
