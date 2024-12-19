@@ -9,7 +9,7 @@ import { order } from './slices/order';
 import { user } from './slices/user';
 import { feed } from './slices/feed';
 
-const rootReducer = combineReducers({
+export const rootReducer = combineReducers({
   constructorBurger: constructorBurger,
   orderSlice: order,
   user: user,
